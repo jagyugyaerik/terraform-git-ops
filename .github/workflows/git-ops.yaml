@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: changed files
-        run: git diff --name-only
+        run: echo $( git --no-pager diff --name-only FETCH_HEAD~1 )
   # terraform-plan:
   #   runs-on: ubuntu-latest
   #   env:
