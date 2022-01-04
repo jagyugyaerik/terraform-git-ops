@@ -23,6 +23,7 @@ jobs:
       - id: changed_directories
         run: |
           DIRS=$( git --no-pager diff --name-only HEAD~1 )
+          JQ_LIST=$( jq -ncR '[inputs]' <<< ${DIRS} )
           echo "::set-output name=matrix::${DIRS}"
   git-ops:
     runs-on: ubuntu-latest
