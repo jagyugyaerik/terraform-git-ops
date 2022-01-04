@@ -6,12 +6,12 @@ on:
     branches:
       - master
     paths:
-      - "${TTERRAFORM_BASE_DIR}/**.tf"
+      - "${TERRAFORM_BASE_DIR}/**.tf"
 defaults:
   run:
     shell: bash
 env:
-  TERRAFORM_BASE_DIR: 'terraform'
+  TERRAFORM_BASE_DIR: "terraform"
 jobs:
   get_changed_directories:
     runs-on: ubuntu-latest
@@ -24,6 +24,7 @@ jobs:
           fetch-depth: 2
       - id: changed_directories
         run: |
+          echo ${TERRAFORM_BASE_DIR}
           DIRS=$( git --no-pager diff --name-only HEAD~1 | grep ${TERRAFORM_BASE_DIR} )
           JQ_LIST=$( jq -ncR '[inputs]' <<< ${DIRS} )
           echo ${JQ_LIST}
