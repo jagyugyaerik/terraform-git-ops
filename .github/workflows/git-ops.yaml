@@ -31,11 +31,15 @@ jobs:
     #   fail-fast: false
       matrix:
           directories: ${{needs.get_changed_directories.outputs.matrix}}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.directories }}
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
       - name: changed files
-        run: echo ${{ matrix.directories }}
+        run: echo $(ls -la)
   # terraform-plan:
   #   runs-on: ubuntu-latest
   #   env:
