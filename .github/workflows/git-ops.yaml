@@ -30,7 +30,8 @@ jobs:
     strategy:
     #   fail-fast: false
       matrix:
-          directories: ${{needs.get_changed_directories.outputs.matrix}}
+          # directories: ${{needs.get_changed_directories.outputs.matrix}}
+          directories: ["terraform/rg_1", "terraform/rg_2"]
     defaults:
       run:
         shell: bash
