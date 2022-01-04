@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - id: changed_directories
         run: |
           DIRS=$( git --no-pager diff --name-only HEAD~1 )
