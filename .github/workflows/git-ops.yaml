@@ -19,18 +19,21 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v2
       - id: changed_directories
-        run: echo "::set-output name=matrix::$( git --no-pager diff --name-only HEAD~1 )"
+        run: |
+          DIRS=$( git --no-pager diff --name-only HEAD~1 )
+          echo "::set-output name=matrix::${DIRS}"
   git-ops:
     runs-on: ubuntu-latest
-    needs: ['get_changed_directories']
+    needs: get_changed_directories
     strategy:
-      fail-fast: false
-      matrix: ${{needs.get_changed_directories.outputs.matrix}}
+    #   fail-fast: false
+      matrix:
+          directories: ${{needs.get_changed_directories.outputs.matrix}}
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
       - name: changed files
-        run: echo ${{ matrix }}
+        run: echo ${{ matrix.directories }}
   # terraform-plan:
   #   runs-on: ubuntu-latest
   #   env:
