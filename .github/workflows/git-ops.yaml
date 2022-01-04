@@ -14,6 +14,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - run:
+          echo $PWD
+          echo $GIT_DIR
       - name: changed files
         run: echo $( git --no-pager diff --name-only FETCH_HEAD~1 )
   # terraform-plan:
